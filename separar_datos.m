@@ -66,6 +66,6 @@ function [datos_train, datos_test, datos_train_clase, datos_test_clase] = separa
         % Eliminar los indices que ya se usaron.
         aleatorios(indices(1:total_datos_clases_test(i))) = [];
         % Hacer la mezcla de nuevo.
-        %shuffle = clases(aleatorios);
+        shuffle = clases(aleatorios);
     end
 end
