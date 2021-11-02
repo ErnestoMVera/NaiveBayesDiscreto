@@ -1,0 +1,7 @@
+function probabilidades = entrenamientoNaiveBayes(datos, clases, numClases)
+    %ENTRENAMIENTONAIVEBAYES Entrenamiento para el modelo inteligente Naive
+    %Bayes.
+    for i = 1:
+    pr_apriori = numel(clases(clases == 1))/numel(clases);
+end
+
