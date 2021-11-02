@@ -10,7 +10,7 @@ function [datos_train, datos_test, datos_train_clase, datos_test_clase] = separa
     % Porcentaje de datos en cada clase.
     proporcion_clases = zeros(total_clases,1);
     for i = 1:total_clases
-       proporcion_clases(i) = numel(clases(clases==1))/total_filas; 
+       proporcion_clases(i) = numel(clases(clases==i))/total_filas; 
     end
     % Calcular cuantos datos usaremos para training y cuantos para test.
     total_datos_training = round(total_filas*proporcion(1));
@@ -37,15 +37,12 @@ function [datos_train, datos_test, datos_train_clase, datos_test_clase] = separa
         indiceFinal = indiceAnterior+total_datos_clases_train(i) - 1;
         datos_train(indiceAnterior:indiceFinal,:) = datos(indices(1:total_datos_clases_train(i)),:);
         datos_train_clase(indiceAnterior:indiceFinal) = i;
-        indiceAnterior = indiceAnterior+total_datos_clases_train(i);
+        indiceAnterior = indiceFinal+1;
         % Eliminar los indices que ya se usaron.
         aleatorios(indices(1:total_datos_clases_train(i))) = [];
         % Hacer la mezcla de nuevo.
         shuffle = clases(aleatorios);
     end
-    % Imprimir la proporcion para ver si se conservo.
-    % p1 = numel(clase1_training(:,1))/total_datos_training.
-    % p2 = numel(clase2_training(:,1))/total_datos_training.
     % manteniendo la proporcion.
     % Armar la cantidad de datos manteniendose las proporciones de test.
     total_datos_clases_test = zeros(total_clases, 1);
@@ -56,7 +53,7 @@ function [datos_train, datos_test, datos_train_clase, datos_test_clase] = separa
     % Datos
     datos_test = zeros(total_datos_test, total_columnas);
     % Clases.
-    datos_test_clase = zeros(total_datos_training, 1);
+    datos_test_clase = zeros(total_datos_test, 1);
     indiceAnterior = 1;
     for i = 1:total_clases
         % Encontrar los indices de la clase i en el vector aleatorio.
@@ -65,12 +62,10 @@ function [datos_train, datos_test, datos_train_clase, datos_test_clase] = separa
         indiceFinal = indiceAnterior+total_datos_clases_test(i) - 1;
         datos_test(indiceAnterior:indiceFinal,:) = datos(indices(1:total_datos_clases_test(i)),:);
         datos_test_clase(indiceAnterior:indiceFinal) = i;
-        indiceAnterior = indiceAnterior+total_datos_clases_test(i);
+        indiceAnterior = indiceFinal+1;
         % Eliminar los indices que ya se usaron.
         aleatorios(indices(1:total_datos_clases_test(i))) = [];
         % Hacer la mezcla de nuevo.
-        shuffle = clases(aleatorios);
+        %shuffle = clases(aleatorios);
     end
-    %ptest1 = numel(clase1_test(:,1))/total_datos_test
-    %ptest2 = numel(clase2_test(:,1))/total_datos_test
 end
