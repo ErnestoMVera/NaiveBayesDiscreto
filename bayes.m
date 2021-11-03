@@ -1,9 +1,5 @@
 load('datos_wdbc.mat')
 [train,test,trainy,testy] = separar_datos(trn.xd,trn.y,[0.6 0.4],2);
-%train = [1 1 1;1 1 1;1 1 1;2 1 1;2 1 2;2 2 2;2 2 2;2 2 1;1 2 2;1 1 2];
-%trainy = [1 2 1 2 1 2 1 2 2 1];
-%test = [1 2 1];
-%c = clasificadorNaiveBayes(test, train,trainy,2)
 corrector_laplaciano = 0.0001;
 inferidas = zeros(numel(testy),1);
 for i = 1:numel(testy)
