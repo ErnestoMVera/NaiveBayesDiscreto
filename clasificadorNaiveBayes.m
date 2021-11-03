@@ -10,6 +10,6 @@ function clase = clasificadorNaiveBayes(dato_test, datos_entrenamiento, clases, 
         dens = sum((ci./dato_test) == 1)/(numel(clases(clases==i)));
         pr_densidad(i) = prod(dens);
     end
-    pr_c = pr_densidad.*pr_apriori
+    pr_c = pr_densidad.*pr_apriori;
     clase = find(pr_c == max(pr_c));
 end
