@@ -25,6 +25,7 @@ function [datos_train, datos_test, datos_train_clase, datos_test_clase] = separa
     aleatorios = randperm(total_filas, total_filas);
     % Mezclar los datos de las clases para seleccionar aleatoriamente.
     shuffle = clases(aleatorios);
+    shuffleDataset = datos(aleatorios,:);
     % Datos
     datos_train = zeros(total_datos_training, total_columnas);
     % Clases.
@@ -35,13 +36,14 @@ function [datos_train, datos_test, datos_train_clase, datos_test_clase] = separa
         indices = find(shuffle == i);
         % Construir todos los datos de training con la clase i.
         indiceFinal = indiceAnterior+total_datos_clases_train(i) - 1;
-        datos_train(indiceAnterior:indiceFinal,:) = datos(indices(1:total_datos_clases_train(i)),:);
+        datos_train(indiceAnterior:indiceFinal,:) = shuffleDataset(indices(1:total_datos_clases_train(i)),:);
         datos_train_clase(indiceAnterior:indiceFinal) = i;
         indiceAnterior = indiceFinal+1;
         % Eliminar los indices que ya se usaron.
         aleatorios(indices(1:total_datos_clases_train(i))) = [];
         % Hacer la mezcla de nuevo.
         shuffle = clases(aleatorios);
+        shuffleDataset = datos(aleatorios,:);
     end
     % manteniendo la proporcion.
     % Armar la cantidad de datos manteniendose las proporciones de test.
@@ -60,12 +62,13 @@ function [datos_train, datos_test, datos_train_clase, datos_test_clase] = separa
         indices = find(shuffle == i);
         % Construir todos los datos de training con la clase i.
         indiceFinal = indiceAnterior+total_datos_clases_test(i) - 1;
-        datos_test(indiceAnterior:indiceFinal,:) = datos(indices(1:total_datos_clases_test(i)),:);
+        datos_test(indiceAnterior:indiceFinal,:) = shuffleDataset(indices(1:total_datos_clases_test(i)),:);
         datos_test_clase(indiceAnterior:indiceFinal) = i;
         indiceAnterior = indiceFinal+1;
         % Eliminar los indices que ya se usaron.
         aleatorios(indices(1:total_datos_clases_test(i))) = [];
         % Hacer la mezcla de nuevo.
         shuffle = clases(aleatorios);
+        shuffleDataset = datos(aleatorios,:);
     end
 end
