@@ -9,8 +9,8 @@ function clase = clasificadorNaiveBayes(dato_test, datos_entrenamiento, clases, 
         ci = datos_entrenamiento(clases == i,:);
         dens = sum((ci./dato_test) == 1)/(numel(clases(clases==i)));
         dens(dens == 0) = corrector_laplaciano;
-        pr_densidad(i) = prod(dens);
+        pr_densidad(i) = sum(log10(dens));
     end
-    pr_c = pr_densidad.*pr_apriori;
+    pr_c = pr_densidad + log10(pr_apriori);
     clase = find(pr_c == max(pr_c));
 end
